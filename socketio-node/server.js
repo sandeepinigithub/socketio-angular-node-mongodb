@@ -9,13 +9,14 @@ let io = require('socket.io')(http, {
       "http://localhost:3000",
       "http://localhost:4200",
       "http://localhost:8080",
+      "http://192.168.0.181:4200"
     ],
   },
 });
 let mongoose = require('mongoose');
 // CORS is enabled for the selected origins
 let corsOptions = {
-  origin: ['http://localhost:4200', 'http://localhost:3000', 'http://127.0.0.1:3000'],
+  origin: ['http://localhost:4200', 'http://localhost:3000', 'http://127.0.0.1:3000','http://192.168.0.181:4200'],
   methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH']
 };
 

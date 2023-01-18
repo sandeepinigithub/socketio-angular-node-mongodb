@@ -25,9 +25,10 @@ export class ChatComponent implements OnInit {
     let reqMsg: any = {
       name: this.usrName, message: this.usrMsg
     };
-    this._chatService.sendMsg(reqMsg).subscribe((res: any) => {
-      console.log("Msg Has been send");
-    });
+    // this._chatService.sendMsg(reqMsg).subscribe((res: any) => {
+    //   console.log("Msg Has been send");
+    // });
+    this.socket.emit('sendMsg', reqMsg);
   }
   getMsg() {
     this._chatService.getMsg().subscribe((res: any) => {

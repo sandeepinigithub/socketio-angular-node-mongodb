@@ -9,9 +9,9 @@ export class ChatService {
   constructor(private _http: HttpClient) { }
 
   sendMsg(reqMsg: any) {
-    return this._http.post<any>('http://localhost:3000/messages', reqMsg);
+    return this._http.post<any>('http://192.168.0.181:3000/messages', reqMsg);
   }
   getMsg() {
-    return this._http.get<any>('http://localhost:3000/messages');
+    return this._http.get<any>('http://192.168.0.181:3000/messages');
   }
 }

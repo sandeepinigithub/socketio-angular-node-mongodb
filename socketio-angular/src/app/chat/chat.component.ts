@@ -39,7 +39,7 @@ export class ChatComponent implements OnInit {
 
   // ++++++++++++ Socket Connection ++++++++ 
   setupSocketConnection() {
-    this.socket = io("http://localhost:3000", {
+    this.socket = io("ws://192.168.0.181:3000", {
       auth: {
         token: "abc"
       }

@@ -9,14 +9,16 @@ let io = require('socket.io')(http, {
       "http://localhost:3000",
       "http://localhost:4200",
       "http://localhost:8080",
-      "http://192.168.0.181:4200"
+      "http://192.168.0.181:4200",
+      "http:192.168.0.181:3000",
+      "http:192.168.0.181"
     ],
   },
 });
 let mongoose = require('mongoose');
 // CORS is enabled for the selected origins
 let corsOptions = {
-  origin: ['http://localhost:4200', 'http://localhost:3000', 'http://127.0.0.1:3000','http://192.168.0.181:4200'],
+  origin: ['http://localhost:4200', 'http://localhost:3000', 'http://127.0.0.1:3000','http://192.168.0.181:4200','http:192.168.0.181:3000','http:192.168.0.181'],
   methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH']
 };
 
@@ -30,7 +32,8 @@ let Message = mongoose.model('Message', {
   message: String
 })
 
-let dbUrl = 'mongodb://localhost:27017/simple-chat'
+// let dbUrl = 'mongodb://localhost:27017/simple-chat'
+let dbUrl = 'mongodb+srv://sandeep:sandeep@cluster0.1wvol.mongodb.net/np-chat'
 
 io.use((socket, next) => {
   let token = socket.handshake.auth.token;
@@ -111,6 +114,6 @@ mongoose.connect(dbUrl, { useUnifiedTopology: true, useNewUrlParser: true }, (er
   console.log('mongodb connected', err);
 })
 
-let server = http.listen(3000, () => {
+let server = http.listen(3000,'192.168.0.181', () => {
   console.log('server is running on port', server.address().port);
 });

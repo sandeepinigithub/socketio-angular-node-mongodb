@@ -78,9 +78,33 @@ app.post('/messages', async (req, res) => {
 
 
 
-io.on('connection', () => {
+// io.on('connection', () => {
+//   console.log('user is connected -- socketio')
+// })
+
+io.on('connection', (socket) => {
   console.log('user is connected -- socketio')
-})
+  socket.on('sendMsg', async (msg) => {
+    // ++++++ Our Logic for saving in DB +++++
+    // io.emit('my broadcast', `server: ${msg}`);
+    try {
+      let message = new Message(msg);
+      let savedMessage = await message.save()
+      console.log('saved');
+      let censored = await Message.findOne({ message: 'badword' });
+      if (censored)
+        await Message.remove({ _id: censored.id })
+      else
+        io.emit('message', msg);
+    }
+    catch (error) {
+      return console.log('error', error);
+    }
+    finally {
+      console.log('Message Posted')
+    }
+  });
+});
 
 mongoose.connect(dbUrl, { useUnifiedTopology: true, useNewUrlParser: true }, (err) => {
   console.log('mongodb connected', err);

@@ -1,0 +1,18 @@
+<div class="container">
+    <br>
+    <div class="jumbotron">
+        <h1 class="display-4">Send Message</h1>
+        <br>
+        <input id="name" class="form-control" placeholder="Name" [(ngModel)]="usrName">
+        <br>
+        <textarea id="message" class="form-control" placeholder="Your Message Here" [(ngModel)]="usrMsg"></textarea>
+        <br>
+        <button id="send" class="btn btn-success" (click)="sendMsgBtn()">Send</button>
+    </div>
+    <div id="messages">
+        <div *ngFor="let msg of msgList">
+            <h4> {{msg.name}} </h4>
+            <p> {{msg.message}} </p>
+        </div>
+    </div>
+</div>

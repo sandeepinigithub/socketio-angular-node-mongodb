@@ -1,18 +1,29 @@
 <div class="container">
     <br>
-    <div class="jumbotron">
+    <div class="jumbotron mb-5">
         <h1 class="display-4">Send Message</h1>
+        <br>
+        <input id="grpId" class="form-control" placeholder="Group Id" [(ngModel)]="grpId">
+        <br>
         <br>
         <input id="name" class="form-control" placeholder="Name" [(ngModel)]="usrName">
         <br>
         <textarea id="message" class="form-control" placeholder="Your Message Here" [(ngModel)]="usrMsg"></textarea>
         <br>
-        <button id="send" class="btn btn-success" (click)="sendMsgBtn()">Send</button>
+        <button id="send" class="btn btn-primary" (click)="sendMsgBtn()">Send</button>
     </div>
-    <div id="messages">
-        <div *ngFor="let msg of msgList">
-            <h4> {{msg.name}} </h4>
-            <p> {{msg.message}} </p>
+
+    <div class="row">
+        <div class="col-12 col-md-3 col-lg-4 card m-2" style="width: 18rem;" *ngFor="let msg of msgList">
+            <div class="card-body">
+                <h5 class="card-title">{{msg.name}}</h5>
+                <p class="card-text fst-italic">{{msg.message}}</p>
+                <p class="card-text fw-bold">Group :- {{msg.groupId}}</p>
+                <a class="btn btn-danger" (click)="deleteMsg(msg)">Delete</a>
+            </div>
         </div>
+
     </div>
+    
+
 </div>

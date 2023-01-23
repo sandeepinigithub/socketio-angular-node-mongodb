@@ -14,4 +14,7 @@ export class ChatService {
   getMsg() {
     return this._http.get<any>('http://192.168.0.181:3000/messages');
   }
+  getMsgById(id:any) {
+    return this._http.get<any>(`http://192.168.0.181:3000/messages/${id}`);
+  }
 }

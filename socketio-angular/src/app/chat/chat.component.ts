@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../services/chat.service';
 import { io } from 'socket.io-client';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-chat',
@@ -10,20 +11,24 @@ import { io } from 'socket.io-client';
 export class ChatComponent implements OnInit {
   usrName: any = '';
   usrMsg: any = '';
+  grpId: any = '';
 
   msgList: any = []
-  socket:any;
+  socket: any;
 
-  constructor(private _chatService: ChatService) { }
+  constructor(private _chatService: ChatService, private _activatedRoute: ActivatedRoute) {
+    this.grpId = this._activatedRoute.snapshot.params['id'];
+  }
 
   ngOnInit(): void {
-    this.getMsg();
+    // this.getMsg();
+    this.getMsgByGroupId();
     this.setupSocketConnection();
   }
 
   sendMsgBtn() {
     let reqMsg: any = {
-      name: this.usrName, message: this.usrMsg
+      name: this.usrName, message: this.usrMsg, groupId: this.grpId
     };
     // this._chatService.sendMsg(reqMsg).subscribe((res: any) => {
     //   console.log("Msg Has been send");
@@ -36,19 +41,31 @@ export class ChatComponent implements OnInit {
       this.msgList = res;
     })
   }
+  getMsgByGroupId() {
+    this._chatService.getMsgById(this.grpId).subscribe((res: any) => {
+      console.log("Msg has been received on First Time Call");
+      this.msgList = res;
+    })
+  }
 
   // ++++++++++++ Socket Connection ++++++++ 
   setupSocketConnection() {
     this.socket = io("ws://192.168.0.181:3000", {
       auth: {
-        token: "abc"
+        token: "abc",
+        groupId: this.grpId
       }
     });
 
     // this.socket.emit('my message', "My Name is Sandeep");
-    this.socket.on('message', (res: any) => {
-      this.msgList.push(res);
+    let msgId = `message${this.grpId}`
+    this.socket.on(msgId, (res: any) => {
+      this.msgList = res;
     });
+  }
+  deleteMsg(deleteMsgId:any){
+    debugger
+    this.socket.emit('deleteMsg', deleteMsgId);
   }
 
 }

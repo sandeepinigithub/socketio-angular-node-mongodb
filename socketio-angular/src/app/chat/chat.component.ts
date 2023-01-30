@@ -12,6 +12,7 @@ export class ChatComponent implements OnInit {
   usrName: any = '';
   usrMsg: any = '';
   grpId: any = '';
+  usrId:any = -1;
 
   msgList: any = []
   socket: any;
@@ -28,7 +29,7 @@ export class ChatComponent implements OnInit {
 
   sendMsgBtn() {
     let reqMsg: any = {
-      name: this.usrName, message: this.usrMsg, groupId: this.grpId
+      name: this.usrName, message: this.usrMsg, group_id: this.grpId,id:Number(this.usrId)
     };
     // this._chatService.sendMsg(reqMsg).subscribe((res: any) => {
     //   console.log("Msg Has been send");

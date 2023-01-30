@@ -3,6 +3,10 @@
     <div class="jumbotron mb-5">
         <h1 class="display-4">Send Message</h1>
         <br>
+        <label for="grpId">**This is chat_id Give unique each time(Confirm from either side will be handled in future --- Testing purpose)</label>
+        <input id="grpId" class="form-control" placeholder="User Id Primary Key" [(ngModel)]="usrId">
+        <br>
+        <label for="grpId">**This is group_id</label>
         <input id="grpId" class="form-control" placeholder="Group Id" [(ngModel)]="grpId">
         <br>
         <br>
@@ -18,7 +22,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{msg.name}}</h5>
                 <p class="card-text fst-italic">{{msg.message}}</p>
-                <p class="card-text fw-bold">Group :- {{msg.groupId}}</p>
+                <p class="card-text fw-bold">Group :- {{msg.group_id}}</p>
                 <a class="btn btn-danger" (click)="deleteMsg(msg)">Delete</a>
             </div>
         </div>
